@@ -3,7 +3,7 @@ import GalleryLayout from "../../layouts/GalleryLayout.astro";
 
 var images = import.meta.glob("../../../public/image/sofaxbible/*");
 const imagePaths = Object.keys(images).map((path) => {
-  return path.split("public")[1];
+  return path.split("public")[1] + "?" + Date.now();
 });
 const fontColor = "#4B965A";
 ---
