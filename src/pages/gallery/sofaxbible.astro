@@ -15,8 +15,8 @@ const fontColor = "#4B965A";
         imagePaths.map((path, i) => (
           <img
             decoding="async"
-            loading="eager"
-            class="thumbnail he aspect-square object-cover"
+            loading="lazy"
+            class="thumbnail aspect-square object-cover"
             src={path}
             alt=""
             data-index={i}
@@ -32,7 +32,7 @@ const fontColor = "#4B965A";
       <div class="swiper-wrapper">
         {
           imagePaths.map((path) => (
-            <img decoding="async" loading="eager" class="swiper-slide object-contain" src={path} alt="" />
+            <img decoding="async" loading="lazy" class="swiper-slide object-contain" src={path} alt="" />
           ))
         }
       </div>
@@ -68,6 +68,7 @@ const fontColor = "#4B965A";
   const swiper = new Swiper("#swiper-container", {
     modules: [Autoplay, EffectFade, Keyboard, Navigation],
     loop: false,
+    lazyPreloadPrevNext: 3,
     slidesPerView: 1,
     slidesPerGroup: 1,
     effect: "fade",
