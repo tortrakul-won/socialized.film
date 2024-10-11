@@ -30,11 +30,7 @@ const fontColor = "#4B965A";
     class="mt-[15vh] flex h-[80vh] flex-col items-center justify-center gap-2 opacity-100 transition-opacity duration-500">
     <div id="swiper-container" class="swiper">
       <div class="swiper-wrapper">
-        {
-          imagePaths.map((path) => (
-            <img loading="lazy" decoding="async" class="swiper-slide object-contain" src={path} alt="" />
-          ))
-        }
+        {imagePaths.map((path) => <img class="swiper-slide object-contain" src={path} alt="" />)}
       </div>
     </div>
     <div class="flex items-center gap-4 text-4xl" style={`color: ${fontColor};`}>
