@@ -1,0 +1,122 @@
+---
+import GalleryLayout from "../../layouts/GalleryLayout.astro";
+
+var images = import.meta.glob("../../../public/image/sofaxbible/*");
+const imagePaths = Object.keys(images).map((path) => {
+  return path.split("public")[1];
+});
+const fontColor = "#4B965A";
+---
+
+<GalleryLayout title="Sofa & Bible" backgroundColor="#D2EBD2" fontColor={fontColor}>
+  <div id="grid-view" class="absolute right-10 top-20 w-[80%] opacity-0 transition-opacity duration-500">
+    <div class="grid grid-cols-[repeat(auto-fit,minmax(150px,1fr));] items-stretch gap-1">
+      {
+        imagePaths.map((path, i) => (
+          <img
+            loading="lazy"
+            decoding="async"
+            class="thumbnail he aspect-square object-cover"
+            src={path}
+            alt=""
+            data-index={i}
+          />
+        ))
+      }
+    </div>
+  </div>
+  <div
+    id="single-view"
+    class="mt-[15vh] flex h-[80vh] flex-col items-center justify-center gap-2 opacity-100 transition-opacity duration-500">
+    <div id="swiper-container" class="swiper">
+      <div class="swiper-wrapper">
+        {
+          imagePaths.map((path) => (
+            <img loading="lazy" decoding="async" class="swiper-slide object-contain" src={path} alt="" />
+          ))
+        }
+      </div>
+    </div>
+    <div class="flex items-center gap-4 text-4xl" style={`color: ${fontColor};`}>
+      <div id="prev-btn" class="cursor-pointer">←</div>
+      <div class="text-xl">
+        <span id="currentIndex">1</span>/<span>{imagePaths.length}</span>
+      </div>
+      <div id="next-btn" class="cursor-pointer">→</div>
+    </div>
+  </div>
+
+  <button id="grid-view-btn" class="absolute bottom-4 left-4 hover:underline" style=`color: ${fontColor};`
+    >Sofa & Bible</button
+  >
+
+  <div
+    id="side-title"
+    class="vertical absolute -left-4 top-[50%] -rotate-90 text-5xl"
+    style=`color:${fontColor}; display: none;`>
+    Sofa & Bible
+  </div>
+</GalleryLayout>
+
+<script>
+  import Swiper from "swiper";
+  import { Keyboard, EffectFade, Autoplay, Navigation } from "swiper/modules";
+
+  const gridBtn = document.getElementById("grid-view-btn")!;
+  const sideTitle = document.getElementById("side-title")!;
+
+  const swiper = new Swiper("#swiper-container", {
+    modules: [Autoplay, EffectFade, Keyboard, Navigation],
+    loop: true,
+    effect: "fade",
+    keyboard: true,
+    fadeEffect: { crossFade: true },
+    speed: 1000,
+    autoplay: { delay: 5000, pauseOnMouseEnter: true },
+    navigation: {
+      nextEl: "#next-btn",
+      prevEl: "#prev-btn",
+    },
+    on: {
+      realIndexChange: function (sw) {
+        document.getElementById("currentIndex")!.textContent = sw.realIndex + 1 + "";
+      },
+    },
+  });
+
+  gridBtn.addEventListener("click", function (e) {
+    let grid = document.getElementById("grid-view");
+    let single = document.getElementById("single-view");
+
+    if (grid && single) {
+      grid.style.opacity = "1";
+      single.style.opacity = "0";
+      single.style.visibility = "hidden";
+    }
+
+    gridBtn.style.display = "none";
+    sideTitle.style.display = "";
+  });
+
+  let TNs = document.getElementsByClassName("thumbnail")!;
+
+  for (const tn of TNs) {
+    tn.addEventListener("click", function (e) {
+      let grid = document.getElementById("grid-view");
+      let single = document.getElementById("single-view");
+
+      if (grid && single) {
+        grid.style.opacity = "0";
+        single.style.visibility = "visible";
+        single.style.opacity = "1";
+      }
+
+      gridBtn.style.display = "";
+      sideTitle.style.display = "none";
+
+      let index = (e.target as HTMLImageElement).dataset["index"];
+      swiper.activeIndex = parseInt(index!);
+      swiper.slideReset(0);
+    });
+  }
+</script>
