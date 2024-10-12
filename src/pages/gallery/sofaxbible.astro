@@ -9,7 +9,10 @@ const fontColor = "#4B965A";
 ---
 
 <GalleryLayout title="Sofa & Bible" backgroundColor="#D2EBD2" fontColor={fontColor}>
-  <div id="grid-view" class="absolute right-10 top-20 w-[80%] opacity-0 transition-opacity duration-500">
+  <div
+    id="grid-view"
+    class="absolute right-10 top-20 w-[80%] opacity-0 transition-opacity duration-500"
+    style="display: none;">
     <div class="grid grid-cols-[repeat(auto-fit,minmax(150px,1fr));] items-stretch gap-1">
       {
         imagePaths.map((path, i) => (
