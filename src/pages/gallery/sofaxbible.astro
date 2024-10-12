@@ -1,25 +1,42 @@
 ---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
 import GalleryLayout from "../../layouts/GalleryLayout.astro";
 
-var images = import.meta.glob("../../../public/image/sofaxbible/*");
-const imagePaths = Object.keys(images).map((path) => {
-  return path.split("public")[1];
-});
+var images = import.meta.glob<{ default: ImageMetadata }>("../../../public/image/sofaxbible/*");
+// const imagePaths = Object.keys(images).map((path) => {
+//   return path.split("public")[1];
+// });
 const fontColor = "#4B965A";
+const imagePaths = Object.keys(images);
+let imageW: { [id: string]: number } = {};
+let imageH: { [id: string]: number } = {};
+for (const path of imagePaths) {
+  let w = await images[path]().then((e) => e.default.width);
+  imageW[path] = w;
+
+  let h = await images[path]().then((e) => e.default.height);
+  imageH[path] = h;
+}
 ---
 
 <GalleryLayout title="Sofa & Bible" backgroundColor="#D2EBD2" fontColor={fontColor}>
-  <div id="grid-view" class="absolute right-10 top-20 w-[80%] opacity-0 transition-opacity duration-500">
+  <div
+    id="grid-view"
+    class="absolute right-10 top-20 w-[80%] opacity-0 transition-opacity duration-500"
+    style="display: none;">
     <div class="grid grid-cols-[repeat(auto-fit,minmax(150px,1fr));] items-stretch gap-1">
       {
         imagePaths.map((path, i) => (
-          <img
-            loading="lazy"
+          <Image
             decoding="async"
-            class="thumbnail he aspect-square object-cover"
-            src={path}
+            loading="lazy"
+            class="thumbnail aspect-square cursor-pointer object-cover"
+            src={path.split("public")[1]}
             alt=""
             data-index={i}
+            width={imageW[path]}
+            height={imageH[path]}
           />
         ))
       }
@@ -32,7 +49,15 @@ const fontColor = "#4B965A";
       <div class="swiper-wrapper">
         {
           imagePaths.map((path) => (
-            <img loading="lazy" decoding="async" class="swiper-slide object-contain" src={path} alt="" />
+            <Image
+              decoding="async"
+              loading="lazy"
+              class="swiper-slide object-contain"
+              src={path.split("public")[1]}
+              alt=""
+              width={imageW[path]}
+              height={imageH[path]}
+            />
           ))
         }
       </div>
@@ -60,14 +85,17 @@ const fontColor = "#4B965A";
 
 <script>
   import Swiper from "swiper";
-  import { Keyboard, EffectFade, Autoplay, Navigation } from "swiper/modules";
+  import { Keyboard, EffectFade, Autoplay, Navigation } from "swiper";
 
   const gridBtn = document.getElementById("grid-view-btn")!;
   const sideTitle = document.getElementById("side-title")!;
 
   const swiper = new Swiper("#swiper-container", {
     modules: [Autoplay, EffectFade, Keyboard, Navigation],
-    loop: true,
+    loop: false,
+    preloadImages: false,
+    slidesPerView: 1,
+    slidesPerGroup: 1,
     effect: "fade",
     keyboard: true,
     fadeEffect: { crossFade: true },
@@ -78,7 +106,7 @@ const fontColor = "#4B965A";
       prevEl: "#prev-btn",
     },
     on: {
-      realIndexChange: function (sw) {
+      activeIndexChange: function (sw) {
         document.getElementById("currentIndex")!.textContent = sw.realIndex + 1 + "";
       },
     },
@@ -89,9 +117,16 @@ const fontColor = "#4B965A";
     let single = document.getElementById("single-view");
 
     if (grid && single) {
-      grid.style.opacity = "1";
-      single.style.opacity = "0";
-      single.style.visibility = "hidden";
+      grid.style.display = "";
+      setTimeout(() => {
+        grid.style.opacity = "1";
+        single.style.opacity = "0";
+        single.style.visibility = "hidden";
+      }, 1);
+
+      setTimeout(() => {
+        single.style.display = "none";
+      }, 500);
     }
 
     gridBtn.style.display = "none";
@@ -106,17 +141,24 @@ const fontColor = "#4B965A";
       let single = document.getElementById("single-view");
 
       if (grid && single) {
-        grid.style.opacity = "0";
-        single.style.visibility = "visible";
-        single.style.opacity = "1";
+        single.style.display = "";
+
+        setTimeout(() => {
+          grid.style.opacity = "0";
+          single.style.visibility = "visible";
+          single.style.opacity = "1";
+        }, 1);
+
+        setTimeout(() => {
+          grid.style.display = "none";
+        }, 500);
       }
 
       gridBtn.style.display = "";
       sideTitle.style.display = "none";
 
-      let index = (e.target as HTMLImageElement).dataset["index"];
-      swiper.activeIndex = parseInt(index!);
-      swiper.slideReset(0);
+      let index = (e.target as HTMLImageElement).dataset["index"]!;
+      swiper.slideTo(parseInt(index), 0);
     });
   }
 </script>
