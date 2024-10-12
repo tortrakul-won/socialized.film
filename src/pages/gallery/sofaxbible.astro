@@ -47,7 +47,7 @@ const fontColor = "#4B965A";
   </div>
   <div
     id="single-view"
-    class="absolute flex h-[80vh] flex-col items-center justify-center gap-2 opacity-100 transition-opacity duration-500">
+    class="absolute flex h-[70vh] flex-col items-center justify-center gap-2 opacity-100 transition-opacity duration-500 md:h-[80vh]">
     <div id="swiper-container" class="swiper">
       <div class="swiper-wrapper">
         {
@@ -74,8 +74,10 @@ const fontColor = "#4B965A";
     </div>
   </div>
 
-  <button id="grid-view-btn" class="absolute bottom-4 left-4 z-20 hover:underline" style=`color: ${fontColor};`
-    >Sofa & Bible</button
+  <button
+    id="grid-view-btn"
+    class="absolute bottom-4 left-0 z-20 ml-0 flex w-full justify-center hover:underline md:ml-4 md:justify-start"
+    style=`color: ${fontColor};`>Sofa & Bible</button
   >
 </GalleryLayout>
 
