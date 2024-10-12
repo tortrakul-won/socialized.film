@@ -15,7 +15,7 @@ const fontColor = "#4B965A";
         imagePaths.map((path, i) => (
           <img
             decoding="async"
-            loading="lazy"
+            loading="eager"
             class="thumbnail aspect-square object-cover"
             src={path}
             alt=""
@@ -32,7 +32,7 @@ const fontColor = "#4B965A";
       <div class="swiper-wrapper">
         {
           imagePaths.map((path) => (
-            <img decoding="async" loading="lazy" class="swiper-slide object-contain" src={path} alt="" />
+            <img decoding="async" loading="eager" class="swiper-slide object-contain" src={path} alt="" />
           ))
         }
       </div>
@@ -92,9 +92,16 @@ const fontColor = "#4B965A";
     let single = document.getElementById("single-view");
 
     if (grid && single) {
-      grid.style.opacity = "1";
-      single.style.opacity = "0";
-      single.style.visibility = "hidden";
+      grid.style.display = "";
+      setTimeout(() => {
+        grid.style.opacity = "1";
+        single.style.opacity = "0";
+        single.style.visibility = "hidden";
+      }, 1);
+
+      setTimeout(() => {
+        single.style.display = "none";
+      }, 500);
     }
 
     gridBtn.style.display = "none";
@@ -109,9 +116,17 @@ const fontColor = "#4B965A";
       let single = document.getElementById("single-view");
 
       if (grid && single) {
-        grid.style.opacity = "0";
-        single.style.visibility = "visible";
-        single.style.opacity = "1";
+        single.style.display = "";
+
+        setTimeout(() => {
+          grid.style.opacity = "0";
+          single.style.visibility = "visible";
+          single.style.opacity = "1";
+        }, 1);
+
+        setTimeout(() => {
+          grid.style.display = "none";
+        }, 500);
       }
 
       gridBtn.style.display = "";
