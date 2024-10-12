@@ -3,7 +3,7 @@ import GalleryLayout from "../../layouts/GalleryLayout.astro";
 
 var images = import.meta.glob("../../../public/image/sofaxbible/*");
 const imagePaths = Object.keys(images).map((path) => {
-  return path.split("public")[1] + "?" + Date.now();
+  return path.split("public")[1];
 });
 const fontColor = "#4B965A";
 ---
@@ -84,7 +84,7 @@ const fontColor = "#4B965A";
       prevEl: "#prev-btn",
     },
     on: {
-      realIndexChange: function (sw) {
+      activeIndexChange: function (sw) {
         document.getElementById("currentIndex")!.textContent = sw.realIndex + 1 + "";
       },
     },
@@ -135,9 +135,8 @@ const fontColor = "#4B965A";
       gridBtn.style.display = "";
       sideTitle.style.display = "none";
 
-      let index = (e.target as HTMLImageElement).dataset["index"];
-      swiper.activeIndex = parseInt(index!);
-      swiper.slideReset(0);
+      let index = (e.target as HTMLImageElement).dataset["index"]!;
+      swiper.slideTo(parseInt(index), 0);
     });
   }
 </script>
