@@ -12,23 +12,25 @@ const { fontColor, backgroundColor, title, description } = Astro.props;
   <body style={`background-color: ${backgroundColor}`}>
     <script is:inline src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <main>
-      <a href={Astro.url.origin} id="page-name" style=`color: ${fontColor}` class=`text-4xl absolute top-4 left-4`>
-        <div>SOCIALIZED</div><div>FILM</div><div></div>
-      </a>
-      <div
-        id="menu-icon"
-        onclick="toggleMenu"
-        style=`color: ${fontColor}`
-        class=`w-14 h-10 cursor-pointer text-4xl absolute top-4 right-4 z-10`>
-        <div style=`border-color: ${fontColor}` class=`border-b-2 h-2`></div>
-        <div style=`border-color: ${fontColor}` class=`border-b-2 h-2`></div>
-        <div style=`border-color: ${fontColor}` class=`border-b-2 h-2`></div>
+      <div class="flex justify-between px-4 pt-4">
+        <a href={Astro.url.origin} id="page-name" style=`color: ${fontColor}` class=`text-4xl`>
+          <div>SOCIALIZED</div><div>FILM</div><div></div>
+        </a>
+        <div
+          id="menu-icon"
+          onclick="toggleMenu"
+          style=`color: ${fontColor}`
+          class="z-20 h-10 w-14 cursor-pointer text-4xl">
+          <div style=`border-color: ${fontColor}` class=`border-b-2 h-2`></div>
+          <div style=`border-color: ${fontColor}` class=`border-b-2 h-2`></div>
+          <div style=`border-color: ${fontColor}` class=`border-b-2 h-2`></div>
+        </div>
       </div>
       <slot />
     </main>
     <div
       id="menu"
-      class="absolute right-0 top-0 z-[1000] flex h-screen flex-col items-center justify-center gap-8 overflow-hidden bg-white bg-opacity-50 text-5xl font-light text-black transition-all duration-500 ease-out">
+      class="absolute right-0 top-0 z-10 flex h-screen flex-col items-center justify-center gap-8 overflow-hidden bg-white bg-opacity-50 text-5xl font-light text-black transition-all duration-500 ease-out">
       <a href={Astro.url.origin}>Home</a>
       <div>Issues</div>
       <div class="w-10">

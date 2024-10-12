@@ -4,10 +4,6 @@ import type { ImageMetadata } from "astro";
 import GalleryLayout from "../../layouts/GalleryLayout.astro";
 
 var images = import.meta.glob<{ default: ImageMetadata }>("../../../public/image/sofaxbible/*");
-// const imagePaths = Object.keys(images).map((path) => {
-//   return path.split("public")[1];
-// });
-const fontColor = "#4B965A";
 const imagePaths = Object.keys(images);
 let imageW: { [id: string]: number } = {};
 let imageH: { [id: string]: number } = {};
@@ -18,14 +14,21 @@ for (const path of imagePaths) {
   let h = await images[path]().then((e) => e.default.height);
   imageH[path] = h;
 }
+
+const fontColor = "#4B965A";
 ---
 
 <GalleryLayout title="Sofa & Bible" backgroundColor="#D2EBD2" fontColor={fontColor}>
   <div
     id="grid-view"
-    class="absolute right-10 top-20 w-[80%] opacity-0 transition-opacity duration-500"
+    class="absolute mx-auto grid grid-cols-[minmax(100px,20fr)_80fr] opacity-0 transition-opacity duration-500"
     style="display: none;">
-    <div class="grid grid-cols-[repeat(auto-fit,minmax(150px,1fr));] items-stretch gap-1">
+    <div id="side-title" style=`color:${fontColor};` class="mt-16 flex h-fit justify-center">
+      <div class="rotate-180 text-5xl" style=`color:${fontColor}; text-orientation: mixed; writing-mode: tb`>
+        Sofa & Bible
+      </div>
+    </div>
+    <div class="grid max-h-[80vh] grid-cols-[repeat(auto-fit,minmax(150px,1fr));] items-stretch gap-1 overflow-y-auto">
       {
         imagePaths.map((path, i) => (
           <Image
@@ -44,7 +47,7 @@ for (const path of imagePaths) {
   </div>
   <div
     id="single-view"
-    class="mt-[15vh] flex h-[80vh] flex-col items-center justify-center gap-2 opacity-100 transition-opacity duration-500">
+    class="absolute flex h-[80vh] flex-col items-center justify-center gap-2 opacity-100 transition-opacity duration-500">
     <div id="swiper-container" class="swiper">
       <div class="swiper-wrapper">
         {
@@ -71,16 +74,9 @@ for (const path of imagePaths) {
     </div>
   </div>
 
-  <button id="grid-view-btn" class="absolute bottom-4 left-4 hover:underline" style=`color: ${fontColor};`
+  <button id="grid-view-btn" class="absolute bottom-4 left-4 z-20 hover:underline" style=`color: ${fontColor};`
     >Sofa & Bible</button
   >
-
-  <div
-    id="side-title"
-    class="vertical absolute -left-4 top-[50%] -rotate-90 text-5xl"
-    style=`color:${fontColor}; display: none;`>
-    Sofa & Bible
-  </div>
 </GalleryLayout>
 
 <script>
@@ -122,15 +118,14 @@ for (const path of imagePaths) {
         grid.style.opacity = "1";
         single.style.opacity = "0";
         single.style.visibility = "hidden";
+        gridBtn.style.visibility = "hidden";
+        sideTitle.style.visibility = "";
       }, 1);
 
       setTimeout(() => {
         single.style.display = "none";
       }, 500);
     }
-
-    gridBtn.style.display = "none";
-    sideTitle.style.display = "";
   });
 
   let TNs = document.getElementsByClassName("thumbnail")!;
@@ -147,15 +142,14 @@ for (const path of imagePaths) {
           grid.style.opacity = "0";
           single.style.visibility = "visible";
           single.style.opacity = "1";
+          sideTitle.style.visibility = "hidden";
+          gridBtn.style.visibility = "";
         }, 1);
 
         setTimeout(() => {
           grid.style.display = "none";
         }, 500);
       }
-
-      gridBtn.style.display = "";
-      sideTitle.style.display = "none";
 
       let index = (e.target as HTMLImageElement).dataset["index"]!;
       swiper.slideTo(parseInt(index), 0);
