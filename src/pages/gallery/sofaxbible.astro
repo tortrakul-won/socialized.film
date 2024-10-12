@@ -63,7 +63,7 @@ const fontColor = "#4B965A";
 
 <script>
   import Swiper from "swiper";
-  import { Keyboard, EffectFade, Autoplay, Navigation } from "swiper/modules";
+  import { Keyboard, EffectFade, Autoplay, Navigation } from "swiper";
 
   const gridBtn = document.getElementById("grid-view-btn")!;
   const sideTitle = document.getElementById("side-title")!;
@@ -71,7 +71,7 @@ const fontColor = "#4B965A";
   const swiper = new Swiper("#swiper-container", {
     modules: [Autoplay, EffectFade, Keyboard, Navigation],
     loop: false,
-    lazyPreloadPrevNext: 3,
+    preloadImages: false,
     slidesPerView: 1,
     slidesPerGroup: 1,
     effect: "fade",
