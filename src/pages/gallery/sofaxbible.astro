@@ -15,10 +15,12 @@ for (const path of imagePaths) {
   imageH[path] = h;
 }
 
+const preloadList = [imagePaths[0].split("public")[1]];
 const fontColor = "#4B965A";
+const backgroundColor = "#D2EBD2";
 ---
 
-<GalleryLayout title="Sofa & Bible" backgroundColor="#D2EBD2" fontColor={fontColor}>
+<GalleryLayout title="Sofa & Bible" backgroundColor={backgroundColor} fontColor={fontColor} preloadList={preloadList}>
   <div
     id="grid-view"
     class="absolute mx-auto grid grid-cols-[minmax(100px,20fr)_80fr] opacity-0 transition-opacity duration-500"
