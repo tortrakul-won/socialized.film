@@ -1,12 +1,13 @@
 ---
 import BaseHead from "../components/BaseHead.astro";
+import { SITE_TITLE } from "../consts";
 
-const { fontColor, backgroundColor, title, description, preloadList } = Astro.props;
+const { fontColor, backgroundColor, title, preloadList } = Astro.props;
 ---
 
 <html lang="en">
   <head>
-    <BaseHead title={title} description={description} preloadList={preloadList} />
+    <BaseHead title={`${SITE_TITLE} | ${title}`} preloadList={preloadList} />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   </head>
   <body style={`background-color: ${backgroundColor}`}>

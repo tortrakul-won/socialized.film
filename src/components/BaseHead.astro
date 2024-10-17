@@ -1,18 +1,18 @@
 ---
 // Import the global.css file here so that it is included on
 // all pages through the use of the <BaseHead /> component.
+import { SITE_DESCRIPTION } from "../consts";
 import "../styles/global.css";
 
 interface Props {
   title: string;
-  description: string;
   image?: string;
   preloadList?: string[];
 }
 
 // const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const { title, description, image = "/image/000046.jpg", preloadList } = Astro.props;
+const { title, image = "/image/000046.jpg", preloadList } = Astro.props;
 ---
 
 <!-- Global Metadata -->
@@ -33,18 +33,18 @@ const { title, description, image = "/image/000046.jpg", preloadList } = Astro.p
 <!-- Primary Meta Tags -->
 <title>{title}</title>
 <meta name="title" content={title} />
-<meta name="description" content={description} />
+<meta name="description" content={SITE_DESCRIPTION} />
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website" />
 <meta property="og:url" content={Astro.url} />
 <meta property="og:title" content={title} />
-<meta property="og:description" content={description} />
+<meta property="og:description" content={SITE_DESCRIPTION} />
 <meta property="og:image" content={new URL(image, Astro.url)} />
 
 <!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:url" content={Astro.url} />
 <meta property="twitter:title" content={title} />
-<meta property="twitter:description" content={description} />
+<meta property="twitter:description" content={SITE_DESCRIPTION} />
 <meta property="twitter:image" content={new URL(image, Astro.url)} />
