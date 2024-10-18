@@ -1,62 +1,84 @@
 ---
-import Layout from '../layouts/BlogPost.astro';
+import BaseHead from "../components/BaseHead.astro";
+import { SITE_TITLE } from "../consts";
+const fontColor = "#f74376";
+const backgroundColor = "#FBE7E6";
 ---
 
-<Layout
-	title="About Me"
-	description="Lorem ipsum dolor sit amet"
-	pubDate={new Date('August 08 2021')}
-	heroImage="/blog-placeholder-about.jpg"
->
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-		labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo
-		viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam
-		adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus
-		et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus
-		vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque
-		sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
-	</p>
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={SITE_TITLE} />
+  </head>
+  <body>
+    <main style=`background-color: ${backgroundColor};` class="h-screen">
+      <header class="flex justify-between px-4 pt-4">
+        <a href={Astro.url.origin} id="page-name" style=`color: ${fontColor}` class=`text-4xl`>
+          <div>SOCIALIZED</div><div>FILM</div><div></div>
+        </a>
+        <div
+          id="menu-icon"
+          onclick="toggleMenu"
+          style=`color: ${fontColor}`
+          class="z-20 h-10 w-14 cursor-pointer text-4xl">
+          <div style=`border-color: ${fontColor}` class=`border-b-2 h-2`></div>
+          <div style=`border-color: ${fontColor}` class=`border-b-2 h-2`></div>
+          <div style=`border-color: ${fontColor}` class=`border-b-2 h-2`></div>
+        </div>
+      </header>
+      <div class="mx-auto flex w-[95vw] flex-col gap-8 pt-8 text-2xl sm:w-[50%]" style={`color: ${fontColor}`}>
+        <div>
+          Socialized.Film is a film photo page of Tortrakul Wonglieng. <frag>A photographer based in BKK.</frag>
+        </div>
+        <div>
+          The 'socialized' part come from the introvertness of him that want to break of comfort zone and get to know
+          people more through his photography.
+        </div>
+        <div>Along the way he learned both people skill and photography skill. Hence the 'film' part.</div>
+      </div>
+    </main>
+    <div
+      id="menu"
+      class="absolute right-0 top-0 z-10 flex h-screen flex-col items-center justify-center gap-8 overflow-hidden bg-white bg-opacity-50 text-5xl font-light text-black transition-all duration-500 ease-out">
+      <a href={Astro.url.origin}>Home</a>
+      <div>Issues</div>
+      <div>About</div>
+      <a href="https://www.instagram.com/socialized.film/" target="_blank" class="w-10">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
+          ><path
+            d="M256 49.5c67.3 0 75.2.2 101.8 1.4 24.6 1.2 37.9 5.3 46.8 8.7a77.6 77.6 0 0128.9 18.9 77.6 77.6 0 0118.9 28.9c3.4 8.9 7.5 22.2 8.7 46.8 1.2 26.6 1.4 34.5 1.4 101.8s-.2 75.2-1.4 101.8c-1.2 24.6-5.3 37.9-8.7 46.8a84.3 84.3 0 01-47.8 47.8c-8.9 3.4-22.2 7.5-46.8 8.7-26.6 1.2-34.5 1.4-101.8 1.4s-75.2-.2-101.8-1.4c-24.6-1.2-37.9-5.3-46.8-8.7a77.6 77.6 0 01-28.9-18.9 77.6 77.6 0 01-18.9-28.9c-3.4-8.9-7.5-22.2-8.7-46.8-1.2-26.6-1.4-34.5-1.4-101.8s.2-75.2 1.4-101.8c1.2-24.6 5.3-37.9 8.7-46.8a77.6 77.6 0 0118.9-28.9 77.6 77.6 0 0128.9-18.9c8.9-3.4 22.2-7.5 46.8-8.7 26.6-1.2 34.5-1.4 101.8-1.4m0-45.4c-68.4 0-77 .3-103.9 1.5S107 11.1 91 17.3a122.8 122.8 0 00-44.6 29.1A122.8 122.8 0 0017.3 91c-6.2 16-10.5 34.3-11.7 61.1S4.1 187.6 4.1 256s.3 77 1.5 103.9S11.1 405 17.3 421a122.8 122.8 0 0029.1 44.6A122.8 122.8 0 0091 494.7c16 6.2 34.3 10.5 61.1 11.7s35.5 1.5 103.9 1.5 77-.3 103.9-1.5 45.1-5.5 61.1-11.7a129.4 129.4 0 0073.7-73.7c6.2-16 10.5-34.3 11.7-61.1s1.5-35.5 1.5-103.9-.3-77-1.5-103.9-5.5-45.1-11.7-61.1a122.8 122.8 0 00-29.1-44.6A122.8 122.8 0 00421 17.3c-16-6.2-34.3-10.5-61.1-11.7S324.4 4.1 256 4.1z"
+          ></path><path
+            d="M256 126.6A129.4 129.4 0 10385.4 256 129.5 129.5 0 00256 126.6zm0 213.4a84 84 0 1184-84 84 84 0 01-84 84z"
+          ></path><circle cx="390.5" cy="121.5" r="30.2"></circle></svg
+        >
+      </a>
+    </div>
+  </body>
+</html>
 
-	<p>
-		Morbi tristique senectus et netus. Id semper risus in hendrerit gravida rutrum quisque non
-		tellus. Habitasse platea dictumst quisque sagittis purus sit amet. Tellus molestie nunc non
-		blandit massa. Cursus vitae congue mauris rhoncus. Accumsan tortor posuere ac ut. Fringilla urna
-		porttitor rhoncus dolor. Elit ullamcorper dignissim cras tincidunt lobortis. In cursus turpis
-		massa tincidunt dui ut ornare lectus. Integer feugiat scelerisque varius morbi enim nunc.
-		Bibendum neque egestas congue quisque egestas diam. Cras ornare arcu dui vivamus arcu felis
-		bibendum. Dignissim suspendisse in est ante in nibh mauris. Sed tempus urna et pharetra pharetra
-		massa massa ultricies mi.
-	</p>
+<script>
+  let menuIcon = document.getElementById("menu-icon");
+  let menu = document.getElementById("menu");
 
-	<p>
-		Mollis nunc sed id semper risus in. Convallis a cras semper auctor neque. Diam sit amet nisl
-		suscipit. Lacus viverra vitae congue eu consequat ac felis donec. Egestas integer eget aliquet
-		nibh praesent tristique magna sit amet. Eget magna fermentum iaculis eu non diam. In vitae
-		turpis massa sed elementum. Tristique et egestas quis ipsum suspendisse ultrices. Eget lorem
-		dolor sed viverra ipsum. Vel turpis nunc eget lorem dolor sed viverra. Posuere ac ut consequat
-		semper viverra nam. Laoreet suspendisse interdum consectetur libero id faucibus. Diam phasellus
-		vestibulum lorem sed risus ultricies tristique. Rhoncus dolor purus non enim praesent elementum
-		facilisis. Ultrices tincidunt arcu non sodales neque. Tempus egestas sed sed risus pretium quam
-		vulputate. Viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare. Fringilla
-		urna porttitor rhoncus dolor purus non. Amet dictum sit amet justo donec enim.
-	</p>
+  menuIcon?.addEventListener("click", function () {
+    menu?.classList.toggle("in");
+  });
+</script>
 
-	<p>
-		Mattis ullamcorper velit sed ullamcorper morbi tincidunt. Tortor posuere ac ut consequat semper
-		viverra. Tellus mauris a diam maecenas sed enim ut sem viverra. Venenatis urna cursus eget nunc
-		scelerisque viverra mauris in. Arcu ac tortor dignissim convallis aenean et tortor at. Curabitur
-		gravida arcu ac tortor dignissim convallis aenean et tortor. Egestas tellus rutrum tellus
-		pellentesque eu. Fusce ut placerat orci nulla pellentesque dignissim enim sit amet. Ut enim
-		blandit volutpat maecenas volutpat blandit aliquam etiam. Id donec ultrices tincidunt arcu. Id
-		cursus metus aliquam eleifend mi.
-	</p>
+<style>
+  #menu {
+    width: 0;
+  }
 
-	<p>
-		Tempus quam pellentesque nec nam aliquam sem. Risus at ultrices mi tempus imperdiet. Id porta
-		nibh venenatis cras sed felis eget velit. Ipsum a arcu cursus vitae. Facilisis magna etiam
-		tempor orci eu lobortis elementum. Tincidunt dui ut ornare lectus sit. Quisque non tellus orci
-		ac. Blandit libero volutpat sed cras. Nec tincidunt praesent semper feugiat nibh sed pulvinar
-		proin gravida. Egestas integer eget aliquet nibh praesent tristique magna.
-	</p>
-</Layout>
+  @media (width > 300px) {
+    #menu.in {
+      width: 100vw;
+    }
+  }
+
+  @media (width > 768px) {
+    #menu.in {
+      width: 300px;
+    }
+  }
+</style>

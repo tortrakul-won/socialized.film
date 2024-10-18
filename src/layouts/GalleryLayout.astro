@@ -11,7 +11,6 @@ const { fontColor, backgroundColor, title, preloadList } = Astro.props;
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   </head>
   <body style={`background-color: ${backgroundColor}`}>
-    <script is:inline src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <main>
       <div class="flex justify-between px-4 pt-4">
         <a href={Astro.url.origin} id="page-name" style=`color: ${fontColor}` class=`text-4xl`>
@@ -34,7 +33,7 @@ const { fontColor, backgroundColor, title, preloadList } = Astro.props;
       class="absolute right-0 top-0 z-10 flex h-screen flex-col items-center justify-center gap-8 overflow-hidden bg-white bg-opacity-50 text-5xl font-light text-black transition-all duration-500 ease-out">
       <a href={Astro.url.origin}>Home</a>
       <div>Issues</div>
-      <div>About</div>
+      <a href="/about"> About</a>
       <a href="https://www.instagram.com/socialized.film/" target="_blank" class="w-10">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
           ><path
