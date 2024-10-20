@@ -37,3 +37,8 @@ html {
 frag {
   display: inline-block;
 }
+
+spo {
+  padding-left: 8px;
+  padding-right: 8px;
+}
