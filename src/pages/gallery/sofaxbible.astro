@@ -18,16 +18,17 @@ for (const path of imagePaths) {
 const preloadList = [imagePaths[0].split("public")[1]];
 const fontColor = "#f74376";
 const backgroundColor = "#FBE7E6";
+const albumName = "Sofa & Bible";
 ---
 
-<GalleryLayout title="Sofa & Bible" backgroundColor={backgroundColor} fontColor={fontColor} preloadList={preloadList}>
+<GalleryLayout title={albumName} backgroundColor={backgroundColor} fontColor={fontColor} preloadList={preloadList}>
   <div
     id="grid-view"
     class="absolute mx-auto grid grid-cols-[minmax(100px,20fr)_80fr] opacity-0 transition-opacity duration-500"
     style="display: none;">
     <div id="side-title" style=`color:${fontColor};` class="mt-16 flex h-fit justify-center">
       <div class="rotate-180 text-5xl" style=`color:${fontColor}; text-orientation: mixed; writing-mode: tb`>
-        Sofa & Bible
+        {albumName}
       </div>
     </div>
     <div class="grid max-h-[80vh] grid-cols-[repeat(auto-fit,minmax(150px,1fr));] items-stretch gap-1 overflow-y-auto">
@@ -79,7 +80,7 @@ const backgroundColor = "#FBE7E6";
   <button
     id="grid-view-btn"
     class="absolute bottom-4 left-0 z-20 ml-0 flex w-full justify-center hover:underline md:justify-start"
-    style=`color: ${fontColor};`><span class="md:ml-4">Sofa & Bible</span></button
+    style=`color: ${fontColor};`><span class="md:ml-4">{albumName}</span></button
   >
 </GalleryLayout>
 
