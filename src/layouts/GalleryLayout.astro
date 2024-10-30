@@ -1,8 +1,34 @@
 ---
+import { Image } from "astro:assets";
 import BaseHead from "../components/BaseHead.astro";
 import { SITE_TITLE } from "../consts";
 
-const { fontColor, backgroundColor, title, preloadList } = Astro.props;
+interface Props {
+  fontColor: string;
+  backgroundColor: string;
+  title: string;
+  imageData: Record<
+    string,
+    () => Promise<{
+      default: ImageMetadata;
+    }>
+  >;
+}
+
+const { fontColor, backgroundColor, title, imageData } = Astro.props;
+
+var images = imageData;
+const imagePaths = Object.keys(images);
+let imageW: { [id: string]: number } = {};
+let imageH: { [id: string]: number } = {};
+for (const path of imagePaths) {
+  let w = await images[path]().then((e) => e.default.width);
+  imageW[path] = w;
+
+  let h = await images[path]().then((e) => e.default.height);
+  imageH[path] = h;
+}
+const preloadList = [imagePaths[0].split("public")[1]];
 ---
 
 <html lang="en">
@@ -26,7 +52,67 @@ const { fontColor, backgroundColor, title, preloadList } = Astro.props;
           <div style=`border-color: ${fontColor}` class=`border-b-2 h-2`></div>
         </div>
       </div>
-      <slot />
+      <div
+        id="grid-view"
+        class="absolute mx-auto grid grid-cols-[minmax(100px,20fr)_80fr] opacity-0 transition-opacity duration-500"
+        style="display: none;">
+        <div id="side-title" style=`color:${fontColor};` class="mt-16 flex h-fit justify-center">
+          <div class="rotate-180 text-5xl" style=`color:${fontColor}; text-orientation: mixed; writing-mode: tb`>
+            {title}
+          </div>
+        </div>
+        <div
+          class="grid max-h-[80vh] grid-cols-[repeat(auto-fit,minmax(150px,1fr));] items-stretch gap-1 overflow-y-auto">
+          {
+            imagePaths.map((path, i) => (
+              <Image
+                decoding="async"
+                loading="lazy"
+                class="thumbnail aspect-square cursor-pointer object-cover"
+                src={path.split("public")[1]}
+                alt=""
+                data-index={i}
+                width={imageW[path]}
+                height={imageH[path]}
+              />
+            ))
+          }
+        </div>
+      </div>
+      <div
+        id="single-view"
+        class="absolute flex h-[70vh] flex-col items-center justify-center gap-2 opacity-100 transition-opacity duration-500 md:h-[80vh]">
+        <div id="swiper-container" class="swiper">
+          <div class="swiper-wrapper">
+            {
+              imagePaths.map((path) => (
+                <Image
+                  decoding="async"
+                  loading="lazy"
+                  class="swiper-slide object-contain"
+                  src={path.split("public")[1]}
+                  alt=""
+                  width={imageW[path]}
+                  height={imageH[path]}
+                />
+              ))
+            }
+          </div>
+        </div>
+        <div class="flex items-center justify-center gap-4 text-4xl" style={`color: ${fontColor};`}>
+          <div id="prev-btn" class="cursor-pointer">←</div>
+          <div class="text-xl">
+            <span id="currentIndex">1</span>/<span>{imagePaths.length}</span>
+          </div>
+          <div id="next-btn" class="cursor-pointer">→</div>
+        </div>
+      </div>
+
+      <button
+        id="grid-view-btn"
+        class="absolute bottom-4 left-0 z-20 ml-0 flex w-full justify-center hover:underline md:justify-start"
+        style=`color: ${fontColor};`><span class="md:ml-4">{title}</span></button
+      >
     </main>
     <div
       id="menu"
@@ -54,6 +140,84 @@ const { fontColor, backgroundColor, title, preloadList } = Astro.props;
   menuIcon?.addEventListener("click", function () {
     menu?.classList.toggle("in");
   });
+</script>
+
+<script>
+  import Swiper from "swiper";
+  import { Keyboard, EffectFade, Autoplay, Navigation } from "swiper";
+
+  const gridBtn = document.getElementById("grid-view-btn")!;
+  const sideTitle = document.getElementById("side-title")!;
+
+  const swiper = new Swiper("#swiper-container", {
+    modules: [Autoplay, EffectFade, Keyboard, Navigation],
+    loop: false,
+    preloadImages: false,
+    slidesPerView: 1,
+    slidesPerGroup: 1,
+    effect: "fade",
+    keyboard: true,
+    fadeEffect: { crossFade: true },
+    speed: 1000,
+    autoplay: { delay: 5000, pauseOnMouseEnter: true },
+    navigation: {
+      nextEl: "#next-btn",
+      prevEl: "#prev-btn",
+    },
+    on: {
+      activeIndexChange: function (sw) {
+        document.getElementById("currentIndex")!.textContent = sw.realIndex + 1 + "";
+      },
+    },
+  });
+
+  gridBtn.addEventListener("click", function (e) {
+    let grid = document.getElementById("grid-view");
+    let single = document.getElementById("single-view");
+
+    if (grid && single) {
+      grid.style.display = "";
+      setTimeout(() => {
+        grid.style.opacity = "1";
+        single.style.opacity = "0";
+        single.style.visibility = "hidden";
+        gridBtn.style.visibility = "hidden";
+        sideTitle.style.visibility = "";
+      }, 1);
+
+      setTimeout(() => {
+        single.style.display = "none";
+      }, 500);
+    }
+  });
+
+  let TNs = document.getElementsByClassName("thumbnail")!;
+
+  for (const tn of TNs) {
+    tn.addEventListener("click", function (e) {
+      let grid = document.getElementById("grid-view");
+      let single = document.getElementById("single-view");
+
+      if (grid && single) {
+        single.style.display = "";
+
+        setTimeout(() => {
+          grid.style.opacity = "0";
+          single.style.visibility = "visible";
+          single.style.opacity = "1";
+          sideTitle.style.visibility = "hidden";
+          gridBtn.style.visibility = "";
+        }, 1);
+
+        setTimeout(() => {
+          grid.style.display = "none";
+        }, 500);
+      }
+
+      let index = (e.target as HTMLImageElement).dataset["index"]!;
+      swiper.slideTo(parseInt(index), 0);
+    });
+  }
 </script>
 
 <style>
