@@ -1,0 +1,22 @@
+---
+interface Props {
+  fontColor: string;
+}
+
+const { fontColor } = Astro.props;
+---
+
+<div id="menu-icon" style=`color: ${fontColor}` class="z-20 h-10 w-14 cursor-pointer text-4xl">
+  <div style=`border-color: ${fontColor}` class=`border-b-2 h-2`></div>
+  <div style=`border-color: ${fontColor}` class=`border-b-2 h-2`></div>
+  <div style=`border-color: ${fontColor}` class=`border-b-2 h-2`></div>
+</div>
+
+<!-- <script>
+  let menuIcon = document.getElementById("menu-icon");
+  let menu = document.getElementById("menu");
+
+  menuIcon?.addEventListener("click", function () {
+    menu?.classList.toggle("in");
+  });
+</script> -->
