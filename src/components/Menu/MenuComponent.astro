@@ -2,8 +2,8 @@
   id="menu"
   class="absolute right-0 top-0 z-10 flex h-screen flex-col items-center justify-center gap-8 overflow-hidden bg-white bg-opacity-50 text-5xl font-light text-black transition-all duration-500 ease-out">
   <a href={Astro.url.origin}>Home</a>
-  <div>Albums</div>
-  <a href="/about"> About</a>
+  <a href="/albums">Albums</a>
+  <a href="/about">About</a>
   <a href="https://www.instagram.com/socialized.film/" target="_blank" class="w-10">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
       ><path
@@ -27,6 +27,10 @@
 <style>
   #menu {
     width: 0;
+  }
+
+  #menu a {
+    text-align: center;
   }
 
   @media (width > 300px) {
