@@ -1,6 +1,3 @@
-import type { GetImageResult } from "astro";
-import { getImage } from "astro:assets";
-
 interface AlbumMap {
   albumName: string;
   galleryUrl: string;

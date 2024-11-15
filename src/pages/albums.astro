@@ -4,7 +4,6 @@ import BaseHead from "../components/BaseHead.astro";
 import MenuButton from "../components/Menu/MenuButton.astro";
 import MenuComponent from "../components/Menu/MenuComponent.astro";
 import { SITE_TITLE } from "../consts";
-import { getImage } from "astro:assets";
 import albumMap from "../data-mapping/albumMap";
 const fontColor = "#f74376";
 const backgroundColor = "#FBE7E6";
@@ -28,19 +27,18 @@ const backgroundColor = "#FBE7E6";
         <div class="grid w-screen grid-cols-[repeat(auto-fit,minmax(150px,250px));] items-stretch gap-6 px-36">
           {
             albumMap.map((entry) => (
-              <div class="relative">
-                <img
-                  decoding="async"
-                  loading="lazy"
-                  class="thumbnail aspect-square cursor-pointer object-cover drop-shadow-xl"
-                  src={entry.imgPath}
-                  style={`transform: rotate(${Math.random() * (2 - -2) + -2}deg);`}
-                  alt=""
-                  width={504}
-                  height={640}
-                />
-                <div class="absolute bottom-2 flex w-full justify-center">{entry.albumName}</div>
-              </div>
+              <a href={entry.galleryUrl} style={`transform: rotate(${Math.random() * (2 - -2) + -2}deg);`}>
+                <div class="relative">
+                  <Image
+                    class="thumbnail aspect-square cursor-pointer object-cover drop-shadow-xl"
+                    src={entry.imgPath}
+                    alt=""
+                    width={504}
+                    height={640}
+                  />
+                  <div class="absolute bottom-2 flex w-full justify-center">{entry.albumName}</div>
+                </div>
+              </a>
             ))
           }
         </div>
