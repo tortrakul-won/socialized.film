@@ -9,13 +9,13 @@ const map: AlbumMap[] = [
   {
     albumName: "Sofa & Bible",
     galleryUrl: "/gallery/sofaxbible",
-    imgPath: "/image/polariod/JAN_2024.png",
+    imgPath: "/images/polariod/JAN_2024.png",
     dateTaken: "JAN 2024",
   },
   {
     albumName: "OCT 2024",
-    galleryUrl: "/gallery/sofaxbible",
-    imgPath: "/image/polariod/OCT_2024.png",
+    galleryUrl: "/gallery/mmuky_OCT2024",
+    imgPath: "/images/polariod/OCT_2024.png",
     dateTaken: "OCT 2024",
   },
 ];

@@ -2,34 +2,54 @@
 import BaseHead from "../components/BaseHead.astro";
 import MenuButton from "../components/Menu/MenuButton.astro";
 import MenuComponent from "../components/Menu/MenuComponent.astro";
-import { SITE_TITLE } from "../consts";
+import PageName from "../components/PageName.astro";
+import { SITE_TITLE, PL_IOS } from "../consts";
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" style="color: white;">
   <head>
-    <BaseHead title={SITE_TITLE} preloadList={["/image/000072.webp", "/image/000046.jpg"]} />
+    <BaseHead
+      title={SITE_TITLE}
+      preloadList={["/images/albums/_mmuky_OCT2024/00010.webp", "/images/albums/_mmuky_OCT2024/00010.webp"]}
+      expandViewport
+    />
   </head>
   <body>
     <main>
       <header class="flex justify-between px-4 pt-4">
-        <a href={Astro.url.origin} id="page-name" style="color: white" class="z-20 text-4xl">
-          <div>SOCIALIZED</div><div>FILM</div><div></div>
-        </a>
+        <PageName adjustIOS />
         <MenuButton fontColor="white" />
       </header>
-      <a href="/gallery/sofaxbible">
+      <a href="/gallery/mmuky_OCT2024">
         <picture id="main-image">
-          <source srcset="/image/000072.webp" media="(width < 400px)" />
+          <source srcset="/images/albums/_mmuky_OCT2024/00010.webp" media="(orientation: portrait)" />
           <img
-            src="/image/000046.jpg"
+            src="/images/albums/_mmuky_OCT2024/00012.webp"
             alt="a couple looking at difference direction"
-            class="absolute left-0 top-0 h-dvh w-dvw object-cover object-[center_80%]"
+            class="absolute left-0 top-0 h-dvh w-dvw object-cover"
           />
         </picture>
       </a>
-      <footer id="date" class="absolute bottom-4 left-4 text-6xl text-white">JAN 2024</footer>
+      <footer id="date" class={"absolute bottom-4 left-4 text-6xl text-white " + PL_IOS}>OCT 2024</footer>
       <MenuComponent />
     </main>
   </body>
 </html>
+
+<!-- <style>
+  html {
+    font-size: 16px; /* Base font size */
+  }
+  @media (height >= 800px) {
+    html {
+      font-size: 26px;
+    }
+  }
+
+  @media (height >= 1200px) {
+    html {
+      font-size: 30px;
+    }
+  }
+</style> -->

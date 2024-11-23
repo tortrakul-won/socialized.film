@@ -3,3 +3,4 @@
 
 export const SITE_TITLE = "socialized.film";
 export const SITE_DESCRIPTION = "Welcome to my website!";
+export const PL_IOS = "pl-[env(safe-area-inset-left)]";

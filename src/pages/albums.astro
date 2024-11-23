@@ -5,21 +5,20 @@ import MenuButton from "../components/Menu/MenuButton.astro";
 import MenuComponent from "../components/Menu/MenuComponent.astro";
 import { SITE_TITLE } from "../consts";
 import albumMap from "../data-mapping/albumMap";
+import PageName from "../components/PageName.astro";
 const fontColor = "#f74376";
 const backgroundColor = "#FBE7E6";
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" style={{ color: fontColor }}>
   <head>
-    <BaseHead title={SITE_TITLE} />
+    <BaseHead title={SITE_TITLE} expandViewport />
   </head>
   <body style=`background-color: ${backgroundColor};`>
     <main class="h-max pb-10">
       <header class="flex justify-between px-4 pt-4">
-        <a href={Astro.url.origin} id="page-name" style=`color: ${fontColor}` class=`text-4xl`>
-          <div>SOCIALIZED</div><div>FILM</div><div></div>
-        </a>
+        <PageName adjustIOS />
         <MenuButton fontColor={fontColor} />
       </header>
       <div class="flex flex-col items-center justify-center gap-20" style={`color: ${fontColor}`}>

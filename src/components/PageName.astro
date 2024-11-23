@@ -1,0 +1,17 @@
+---
+import { PL_IOS } from "../consts";
+interface Props {
+  fontColor?: string;
+  adjustIOS?: boolean;
+}
+
+const { fontColor, adjustIOS } = Astro.props;
+---
+
+<a
+  href={Astro.url.origin}
+  id="page-name"
+  style={{ color: fontColor ? `color:${fontColor}` : "", paddingLeft: adjustIOS ? "env(safe-area-inset-left)" : "" }}
+  class="z-20 text-4xl">
+  <div>SOCIALIZED</div><div>FILM</div><div></div>
+</a>
