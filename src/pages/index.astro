@@ -32,7 +32,7 @@ import { SITE_TITLE, PL_IOS } from "../consts";
         </picture>
         <footer
           id="hint"
-          class={"absolute bottom-5 tracking-tighter hover:tracking-wider transition-all right-4 text-5xl text-white font-thin cursor-pointer font-mono"}>
+          class={"absolute bottom-4  tracking-tighter hover:tracking-wider transition-all right-4 text-3xl md:text-5xl text-white font-thin cursor-pointer font-mono"}>
           {">>"}
         </footer>
       </a>
@@ -41,6 +41,24 @@ import { SITE_TITLE, PL_IOS } from "../consts";
     </main>
   </body>
 </html>
+
+<style>
+  @keyframes suggestion-ping {
+    0% {
+      letter-spacing: -0.05rem;
+    }
+    50% {
+      letter-spacing: 0.05rem;
+    }
+    100% {
+      letter-spacing: -0.05rem;
+    }
+  }
+
+  #hint {
+    animation: suggestion-ping 1s ease-in-out 0s infinite;
+  }
+</style>
 
 <!-- <style>
   html {
