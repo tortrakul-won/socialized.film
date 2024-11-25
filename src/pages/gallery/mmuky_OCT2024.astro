@@ -2,10 +2,10 @@
 import type { ImageMetadata } from "astro";
 import GalleryLayout from "../../layouts/GalleryLayout.astro";
 
-var images = import.meta.glob<{ default: ImageMetadata }>("../../../public/images/albums/sofaxbible/*");
-const fontColor = "#f74376";
-const backgroundColor = "#FBE7E6";
-const albumName = "Sofa & Bible";
+var images = import.meta.glob<{ default: ImageMetadata }>("../../../public/images/albums/_mmuky_OCT2024/*.webp");
+const fontColor = "#ffb347";
+const backgroundColor = "black";
+const albumName = "Mook October 2024";
 ---
 
 <GalleryLayout title={albumName} backgroundColor={backgroundColor} fontColor={fontColor} imageData={images} />

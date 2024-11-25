@@ -1,39 +1,54 @@
 ---
+import { Image } from "astro:assets";
 import BaseHead from "../components/BaseHead.astro";
 import MenuButton from "../components/Menu/MenuButton.astro";
 import MenuComponent from "../components/Menu/MenuComponent.astro";
 import { SITE_TITLE } from "../consts";
+import mebw from "../images/me_bw_optm.webp";
+import PageName from "../components/PageName.astro";
 const fontColor = "#f74376";
 const backgroundColor = "#FBE7E6";
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" style={{ color: fontColor }}>
   <head>
-    <BaseHead title={SITE_TITLE} />
+    <BaseHead title={SITE_TITLE} preloadList={["/images/me_bw_optm.webp"]} expandViewport />
   </head>
   <body style=`background-color: ${backgroundColor};`>
     <main class="h-max pb-10">
       <header class="flex justify-between px-4 pt-4">
-        <a href={Astro.url.origin} id="page-name" style=`color: ${fontColor}` class=`text-4xl`>
-          <div>SOCIALIZED</div><div>FILM</div><div></div>
-        </a>
+        <PageName adjustIOS />
         <MenuButton fontColor={fontColor} />
       </header>
-      <div class="flex flex-col items-center justify-center gap-20" style={`color: ${fontColor}`}>
-        <section class="mx-auto grid w-[min(850px,90%)] gap-8 pt-8 sm:grid-cols-[300px_auto]">
-          <img src="/image/me 120.jpg" alt="" />
-          <div class="flex flex-col gap-8 text-2xl">
-            <div>
-              <frag><em>socialized.film</em> is a film photography</frag> page of <frag>Tortrakul Wonglieng.</frag>
-              <frag>A photographer based in BKK.</frag>
+      <div class="flex flex-col items-center justify-center gap-10 pt-4" style={`color: ${fontColor}`}>
+        <div class="w-screen bg-black">
+          <section
+            class="relative mx-auto grid w-[min(950px,90%)] grid-cols-1 items-center gap-8 bg-black py-8 landscape:grid-cols-[300px_auto]">
+            <img
+              src={mebw.src}
+              class="max-h-[80vh] w-full object-scale-down"
+              title="Taken by @awesomephotosbylawson"
+              alt={"Portrait of Tortrakul Wonglieng in black & white"}
+            />
+            <div
+              class="absolute left-0 top-0 flex h-full w-full flex-col items-center justify-around gap-1 bg-clip-text text-3xl text-white sm:text-5xl lg:gap-8 lg:text-8xl portrait:font-serif portrait:italic landscape:static">
+              <div class="">Photographer,</div>
+              <div class="pt-6">Programmer</div>
+              <div class="pt-6">Based in BKK</div>
             </div>
-            <div>
-              The 'socialized' part come from the introvertness of him that want to break of comfort zone and get to
-              know people more through his photography.
-            </div>
-            <div>Along the way he learned both people skill and photography skill. Hence the 'film' part.</div>
+          </section>
+        </div>
+        <section class="flex w-[min(850px,90%)] flex-col items-center gap-8 text-2xl">
+          <div>
+            <frag><em>socialized.film</em> is a film photography</frag> page of <frag>Tortrakul Wonglieng.</frag>
+            <frag>A photographer based in BKK.</frag>
           </div>
+          <div>
+            The 'socialized' part come from the introvertness of him that want to break of comfort zone and get to know
+            people more through his photography.
+          </div>
+          <div>Along the way he learned both people skill and photography skill. Hence the 'film' part.</div>
         </section>
         <section class="flex w-[min(850px,90%)] flex-col items-center gap-8 text-2xl">
           <h1 class="text-4xl">As for the website idea</h1>
@@ -44,13 +59,22 @@ const backgroundColor = "#FBE7E6";
             </frag>
           </p>
           <p>
-            I've always want to have a place to showcase my work in the entirety of it and not to be resctrict by any
+            I've always want to have a place to showcase my work in the entirety of it and not to be restricted by any
             specific ratio. <spo>No clutter, no likes. just images.</spo>
           </p>
           <p>
             I like the simplicity of that website. It has enough theming to show character of the photographer and each
-            albums. It also easy enough for me to code by myself.
+            albums. It's also easy enough for me to code by myself.
           </p>
+        </section>
+        <section class="flex w-[min(850px,90%)] flex-col items-center gap-8 text-2xl">
+          <h1 class="text-4xl">Credit</h1>
+          <div class="grid grid-cols-2 gap-x-20">
+            <div class="text-left">Photographer</div>
+            <div class="text-right">Tortrakul Wonglieng</div>
+            <div class="text-left">Frontend Developer</div>
+            <div class="text-right">Tortrakul Wonglieng</div>
+          </div>
         </section>
       </div>
     </main>

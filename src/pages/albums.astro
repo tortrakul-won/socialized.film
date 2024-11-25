@@ -1,0 +1,49 @@
+---
+import { Image } from "astro:assets";
+import BaseHead from "../components/BaseHead.astro";
+import MenuButton from "../components/Menu/MenuButton.astro";
+import MenuComponent from "../components/Menu/MenuComponent.astro";
+import { SITE_TITLE } from "../consts";
+import albumMap from "../data-mapping/albumMap";
+import PageName from "../components/PageName.astro";
+const fontColor = "#f74376";
+const backgroundColor = "#FBE7E6";
+---
+
+<!doctype html>
+<html lang="en" style={{ color: fontColor }}>
+  <head>
+    <BaseHead title={SITE_TITLE} expandViewport />
+  </head>
+  <body style=`background-color: ${backgroundColor};`>
+    <main class="h-max pb-10">
+      <header class="flex justify-between px-4 pt-4">
+        <PageName adjustIOS />
+        <MenuButton fontColor={fontColor} />
+      </header>
+      <div class="flex flex-col items-center justify-center gap-20" style={`color: ${fontColor}`}>
+        <h1 class="text-6xl">Albums</h1>
+        <div
+          class="grid w-screen grid-cols-[repeat(2,minmax(150px,225px));] items-stretch justify-center gap-4 px-4 sm:grid-cols-[repeat(3,minmax(200px,240px));] lg:grid-cols-[repeat(4,240px);]">
+          {
+            albumMap.map((entry) => (
+              <a href={entry.galleryUrl} style={`transform: rotate(${Math.random() * (2 - -2) + -2}deg);`}>
+                <div class="relative">
+                  <Image
+                    class="thumbnail aspect-square cursor-pointer object-cover drop-shadow-xl"
+                    src={entry.imgPath}
+                    alt=""
+                    width={504}
+                    height={640}
+                  />
+                  <div class="absolute bottom-2 flex w-full justify-center opacity-70">{entry.albumName}</div>
+                </div>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+      <MenuComponent />
+    </main>
+  </body>
+</html>

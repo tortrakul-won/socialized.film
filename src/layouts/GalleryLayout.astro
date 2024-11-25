@@ -1,9 +1,10 @@
 ---
 import { Image } from "astro:assets";
 import BaseHead from "../components/BaseHead.astro";
-import { SITE_TITLE } from "../consts";
+import { SITE_TITLE, PL_IOS } from "../consts";
 import MenuButton from "../components/Menu/MenuButton.astro";
 import MenuComponent from "../components/Menu/MenuComponent.astro";
+import PageName from "../components/PageName.astro";
 
 interface Props {
   fontColor: string;
@@ -38,12 +39,10 @@ const preloadList = [imagePaths[0].split("public")[1]];
     <BaseHead title={`${SITE_TITLE} | ${title}`} preloadList={preloadList} />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   </head>
-  <body style={`background-color: ${backgroundColor}`}>
+  <body style={`background-color: ${backgroundColor}; color:${fontColor}`}>
     <main>
       <div class="flex justify-between px-4 pt-4">
-        <a href={Astro.url.origin} id="page-name" style=`color: ${fontColor}` class=`text-4xl`>
-          <div>SOCIALIZED</div><div>FILM</div><div></div>
-        </a>
+        <PageName />
         <MenuButton fontColor={fontColor} />
       </div>
       <div
@@ -76,7 +75,7 @@ const preloadList = [imagePaths[0].split("public")[1]];
       <div
         id="single-view"
         class="absolute flex h-[70vh] flex-col items-center justify-center gap-2 opacity-100 transition-opacity duration-500 md:h-[80vh]">
-        <div id="swiper-container" class="swiper">
+        <div id="swiper-container" class="swiper h-[70vh] md:h-[80vh]">
           <div class="swiper-wrapper">
             {
               imagePaths.map((path) => (
@@ -102,11 +101,15 @@ const preloadList = [imagePaths[0].split("public")[1]];
         </div>
       </div>
 
-      <button
-        id="grid-view-btn"
-        class="absolute bottom-4 left-0 z-20 ml-0 flex w-full justify-center hover:underline md:justify-start"
-        style=`color: ${fontColor};`><span class="md:ml-4">{title}</span></button
-      >
+      <div
+        class="absolute bottom-0 left-0 z-20 flex w-full items-baseline justify-center md:bottom-4 landscape:justify-start">
+        <button
+          id="grid-view-btn"
+          class="underline decoration-2 underline-offset-2 transition-all ease-in-out landscape:hover:underline-offset-8"
+          style=`color: ${fontColor};`>
+          <span class={"md:ml-4 " + PL_IOS}>{title}</span>
+        </button>
+      </div>
     </main>
     <MenuComponent />
   </body>
