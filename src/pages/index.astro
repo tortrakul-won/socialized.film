@@ -4,6 +4,10 @@ import MenuButton from "../components/Menu/MenuButton.astro";
 import MenuComponent from "../components/Menu/MenuComponent.astro";
 import PageName from "../components/PageName.astro";
 import { SITE_TITLE, PL_IOS } from "../consts";
+
+var images = import.meta.glob<{ default: ImageMetadata }>("../../public/images/albums/_mmuky_OCT2024/*.webp");
+const imagePaths = Object.keys(images);
+const prefetchList = imagePaths.map((m) => m.split("public")[1]);
 ---
 
 <!doctype html>
@@ -14,6 +18,7 @@ import { SITE_TITLE, PL_IOS } from "../consts";
       preloadList={["/images/albums/_mmuky_OCT2024/00010.webp", "/images/albums/_mmuky_OCT2024/00010.webp"]}
       expandViewport
     />
+    {prefetchList?.map((prefetchPath) => <link rel="prefetch" href={prefetchPath} as="image" />)}
   </head>
   <body>
     <main>

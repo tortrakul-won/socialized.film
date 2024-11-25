@@ -41,3 +41,5 @@ pnpm-debug.log*
 # Ignore all local history of files
 .history
 .ionide
+
+.DS_Store
