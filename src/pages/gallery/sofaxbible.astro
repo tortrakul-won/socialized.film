@@ -6,6 +6,18 @@ var images = import.meta.glob<{ default: ImageMetadata }>("../../../public/image
 const fontColor = "#f74376";
 const backgroundColor = "#FBE7E6";
 const albumName = "Sofa & Bible";
+
+const cc = new Map([
+  ["Camera:", "Canon A-1"],
+  ["Film:", "Fujifilm Xtra-400"],
+  ["D&S at", "XANAP Filmlab"],
+]);
 ---
 
-<GalleryLayout title={albumName} backgroundColor={backgroundColor} fontColor={fontColor} imageData={images} />
+<GalleryLayout
+  title={albumName}
+  backgroundColor={backgroundColor}
+  fontColor={fontColor}
+  imageData={images}
+  curtainCall={cc}
+/>

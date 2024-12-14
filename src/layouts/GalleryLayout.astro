@@ -10,6 +10,7 @@ interface Props {
   fontColor: string;
   backgroundColor: string;
   title: string;
+  curtainCall?: Map<string, string> | null;
   imageData: Record<
     string,
     () => Promise<{
@@ -18,7 +19,7 @@ interface Props {
   >;
 }
 
-const { fontColor, backgroundColor, title, imageData } = Astro.props;
+const { fontColor, backgroundColor, title, imageData, curtainCall = null } = Astro.props;
 
 var images = imageData;
 const imagePaths = Object.keys(images);
@@ -70,6 +71,20 @@ const preloadList = [imagePaths[0].split("public")[1]];
               />
             ))
           }
+          {
+            curtainCall && (
+              <div
+                class="thumbnail flex aspect-square cursor-pointer flex-col items-center justify-center object-cover text-sm/tight lg:text-[0.5rem]"
+                data-index={imagePaths.length}>
+                {Array.from(curtainCall.entries()).map(([key, value]) => (
+                  <div class="flex w-full justify-between px-4">
+                    <span>{key}</span>
+                    <span>{value}</span>
+                  </div>
+                ))}
+              </div>
+            )
+          }
         </div>
       </div>
       <div
@@ -89,6 +104,18 @@ const preloadList = [imagePaths[0].split("public")[1]];
                   height={imageH[path]}
                 />
               ))
+            }
+            {
+              curtainCall && (
+                <div class="swiper-slide flex h-full w-full flex-col items-center justify-center text-xl lg:text-4xl">
+                  {Array.from(curtainCall.entries()).map(([key, value]) => (
+                    <div class="flex min-w-[80%] justify-between px-4 lg:min-w-[60%]">
+                      <span>{key}</span>
+                      <span>{value}</span>
+                    </div>
+                  ))}
+                </div>
+              )
             }
           </div>
         </div>
@@ -187,7 +214,7 @@ const preloadList = [imagePaths[0].split("public")[1]];
         }, 500);
       }
 
-      let index = (e.target as HTMLImageElement).dataset["index"]!;
+      let index = (e.currentTarget as HTMLImageElement).dataset["index"]!;
       swiper.slideTo(parseInt(index), 0);
     });
   }
